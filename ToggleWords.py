@@ -32,21 +32,26 @@ class ToggleWordCommand(sublime_plugin.TextCommand):
 						lf_b = line_finding.span()[1]
 						finding_region = Region(lineBegin + lf_a, lineBegin + lf_b)
 						if finding_region.contains(cursorPos):
+							# sublime.status_message("{0}: hurray, one of line_findings, namely '{5}' at '{1}', contains cursor at '{2}'. Line begins at '{3}'".format(PLUGIN_NAME, finding_region, cursorPos, lineBegin,line_finding.span(),toggle_group[cur_word]))
 							editor_word = self.view.substr(finding_region)
 							region = finding_region
 
 
 				if editor_word == toggle_group[cur_word]:
 					self.view.replace(view, region, toggle_group[next_word])
+					# sublime.status_message("{0}, code 1: word under cursor '{1}' is equal to toggle '{2}', changed to next toggle '{3}'".format(PLUGIN_NAME, editor_word, toggle_group[cur_word], toggle_group[next_word]))
 					return
 				if editor_word == toggle_group[cur_word].lower():
 					self.view.replace(view, region, toggle_group[next_word].lower())
+					# sublime.status_message("{0}, code 2: word under cursor '{1}' is almost equal to lowercase toggle '{2}', changed to next toggle '{3}' (lowercased)".format(PLUGIN_NAME, editor_word, toggle_group[cur_word], toggle_group[next_word]))
 					return
 				if editor_word == toggle_group[cur_word].capitalize():
 					self.view.replace(view, region, toggle_group[next_word].capitalize())
+					# sublime.status_message("{0}, code 3: word under cursor '{1}' is almost equal to capitalized toggle '{2}', changed to next toggle '{3}' (capitalized)".format(PLUGIN_NAME, editor_word, toggle_group[cur_word], toggle_group[next_word]))
 					return
 				if editor_word == toggle_group[cur_word].upper():
 					self.view.replace(view, region, toggle_group[next_word].upper())
+					# sublime.status_message("{0}, code 4: word under cursor '{1}' is almost equal to uppercase toggle '{2}', changed to next toggle '{3}' (uppercased)".format(PLUGIN_NAME, editor_word, toggle_group[cur_word], toggle_group[next_word]))
 					return
 
 
